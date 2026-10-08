@@ -1,0 +1,14 @@
+# Run the published image:  docker compose up -d   ->  http://localhost:8080
+services:
+  cue2iso:
+    image: ghcr.io/johndoe6345789/cue2iso:latest
+    ports:
+      - "8080:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped

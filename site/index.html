@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUE/BIN to ISO</title>
+<meta name="description" content="Convert CD images from CUE/BIN to ISO in your browser. Files never leave your device.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>CUE/BIN to ISO</h1>
+  <p class="lead">Turns a CD image (<code>.cue</code> + <code>.bin</code>) into a standard <code>.iso</code>.
+    It runs in your browser: the files are read here and <strong>never uploaded</strong>.</p>
+
+  <label class="drop" id="drop" for="files">
+    <input id="files" type="file" multiple accept=".cue,.bin,.img,.iso">
+    <span class="drop-title">Choose your .cue and .bin files</span>
+    <span class="drop-hint">or drop them here. Select the .cue and every .bin it names, together.
+      A lone .bin works too.</span>
+  </label>
+
+  <p id="message" role="status" aria-live="polite"></p>
+  <ul id="tracks" class="tracks"></ul>
+
+  <details>
+    <summary>What it does</summary>
+    <p>A raw CD sector is 2352 bytes, of which 2048 are the data. The converter keeps those 2048 bytes
+      of every data-track sector and drops the sync, header and error-correction bytes. It supports
+      MODE1/2352, MODE2/2352, MODE2/2336 and 2048-byte tracks. Audio tracks can't go in an ISO and are skipped.
+      When the cue has several data tracks you get one ISO per track.</p>
+    <p>Mixed-mode discs (data track plus CD audio) give you just the data. Copy-protected discs and anything
+      with bad sectors can't be made into a faithful ISO.</p>
+    <p>Very large images (several hundred MB) need that much free memory in browsers without
+      the "save file" API (Firefox, Safari, phones). Desktop Chrome and Edge write straight to disk.</p>
+  </details>
+</main>
+<script src="convert.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
