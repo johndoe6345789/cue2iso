@@ -51,6 +51,6 @@ jobs:
       - name: Smoke test the image
         if: github.event_name == 'push'
         run: |
-          docker run -d --name c -p 8080:8080 ghcr.io/${{ github.repository }}:latest
+          docker run -d --name cue2iso-smoke -p 8080:8080 ghcr.io/${{ github.repository }}:latest
           for i in $(seq 1 20); do curl -fsS localhost:8080/healthz && break; sleep 1; done
           curl -fsS localhost:8080/ | grep -q "CUE/BIN to ISO"
